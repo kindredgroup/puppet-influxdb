@@ -19,8 +19,18 @@ items = [
 ]
 
 def quote_if_str(v)
-  return '"' + v + '"' if v.is_a? String
-  return v
+  # no idea why integer values ends up as strings causing below to fail
+  # return '"' + v + '"' if v.is_a? String
+  # return v
+  if v.is_a? String
+    if /^\d+$/.match(v)
+      return v
+    else
+      return '"' + v + '"'
+    end
+  else
+    return v
+  end
 end
 
 @config_toplevel.keys.sort.each do |key| -%>

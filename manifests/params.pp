@@ -1,8 +1,8 @@
 class influxdb::params {
 
   $version = '0.9.1'
-  $user = 'influxdb'
-  $group = 'influxdb'
+  $username = 'influxdb'
+  $groupname = 'influxdb'
   $config = '/etc/opt/influxdb/influxdb.conf'
   $default_file = '/etc/default/influxdb'
   $logdirectory = '/var/log/influxdb'

@@ -1,6 +1,7 @@
 class influxdb::config (
-  $user                      = $::influxdb::user,
-  $group                     = $::influxdb::group,
+  $ensure                    = $::influxdb::ensure,
+  $username                  = $::influxdb::username,
+  $groupname                 = $::influxdb::groupname,
   $logdirectory              = $::influxdb::logdirectory,
   $config_toplevel           = $::influxdb::config_toplevel,
   $config_meta               = $::influxdb::config_meta,
@@ -19,7 +20,7 @@ class influxdb::config (
 ) {
 
   file { $::influxdb::params::default_file:
-    ensure  => $::influxdb::ensure,
+    ensure  => $ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -27,7 +28,7 @@ class influxdb::config (
   }
 
   file { $::influxdb::params::config:
-    ensure => $::influxdb::ensure,
+    ensure => $ensure,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',

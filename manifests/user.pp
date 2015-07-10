@@ -1,22 +1,22 @@
 class influxdb::user (
-  $user        = $::influxdb::user,
-  $group       = $::influxdb::group,
+  $ensure      = $::influxdb::ensure,
+  $username    = $::influxdb::username,
+  $groupname   = $::influxdb::groupname,
   $manage_user = $::influxdb::manage_user
-){
+) {
 
   if $manage_user {
-    @user { $user:
+    @group { $groupname:
+      ensure => $ensure
+    }
+    @user { $username:
       ensure  => $ensure,
       comment => 'InfluxDB service account',
-      shell   => '/bin/false',
-      gid     => $group
-    }
-    @group { $group:
-      ensure  => $ensure
+      shell   => '/bin/bash',
+      gid     => $groupname
     }
   }
 
-  Group<| title == $group |> ->
-  User<| title == $user |>
+  Group <| title == "$groupname" |> -> User <| title == "$username" |>
 
 }
