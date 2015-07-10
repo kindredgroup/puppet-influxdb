@@ -1,0 +1,41 @@
+# MANAGED BY PUPPET
+
+<%-
+
+items = [
+  {'config_meta' => '[meta]'},
+  {'config_data' => '[data]'},
+  {'config_cluster' => '[cluster]'},
+  {'config_retention' => '[retention]'},
+  {'config_admin' => '[admin]'},
+  {'config_http' => '[http]'},
+  {'config_graphite' => '[[graphite]]'},
+  {'config_collectd' => '[collectd]'},
+  {'config_opentsdb' => '[opentsdb]'},
+  {'config_udp' => '[udp]'},
+  {'config_monitoring' => '[monitoring]'},
+  {'config_continuous_queries' => '[continuous_queries]'},
+  {'config_hinted_handoff' => '[hinted-handoff]'}
+]
+
+def quote_if_str(v)
+  return '"' + v + '"' if v.is_a? String
+  return v
+end
+
+@config_toplevel.keys.sort.each do |key| -%>
+<%= key %> = <%= @config_toplevel[key] %>
+<%- end -%>
+
+<%-
+items.each do |item|
+  var = scope[item.keys[0]]
+  if var -%>
+
+<%= item.values[0] %>
+<%- var.keys.sort.each do |key| -%>
+  <%= key %> = <%= quote_if_str(var[key]) %>
+<%- end
+  end
+end
+-%>
