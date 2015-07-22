@@ -1,5 +1,7 @@
 # influxdb
 
+[![Build Status](https://secure.travis-ci.org/unibet/puppet-influxdb.png)](http://travis-ci.org/unibet/puppet-influxdb)
+
 #### Table of Contents
 
 1. [Overview](#overview)
