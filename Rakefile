@@ -35,3 +35,19 @@ desc "Run integration tests"
 task :integration do
     sh "kitchen test all --destroy=always"
 end
+
+desc "Set patch version in metadata.json based on env var TRAVIS_BUILD_NUMBER"
+task :set_travis_version do
+  require 'json'
+  travis_build_number = ENV['TRAVIS_BUILD_NUMBER']
+  metadata_json = File.read('metadata.json')
+  data_hash = JSON.parse(metadata_json)
+  version = data_hash["version"]
+  new_version = "#{version.split(".")[0,2].join(".")}.#{travis_build_number}"
+  data_hash["version"] = new_version
+  File.open('metadata.json', 'w') do |f|
+    f.write(JSON.pretty_generate(data_hash))
+  end
+  puts "Travis build number: #{travis_build_number}"
+  puts "New version: #{new_version}"
+end
