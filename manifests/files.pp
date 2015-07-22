@@ -9,7 +9,7 @@ class influxdb::files {
     ensure => $ensure,
     owner  => $::influxdb::user,
     group  => $::influxdb::group,
-    mode => '0755',
+    mode   => '0755',
   }
 
 }

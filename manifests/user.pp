@@ -17,6 +17,6 @@ class influxdb::user (
     }
   }
 
-  Group <| title == "$groupname" |> -> User <| title == "$username" |>
+  Group <| title == $groupname |> -> User <| title == $username |>
 
 }

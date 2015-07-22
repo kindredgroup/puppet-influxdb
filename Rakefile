@@ -19,6 +19,7 @@ PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.send("disable_autoloader_layout")
 PuppetLint.configuration.send("disable_quoted_booleans")
+PuppetLint.configuration.send("disable_documentation")
 PuppetLint.configuration.ignore_paths = exclude_paths
 PuppetSyntax.exclude_paths = exclude_paths
 

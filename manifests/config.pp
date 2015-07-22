@@ -28,10 +28,10 @@ class influxdb::config (
   }
 
   file { $::influxdb::params::config:
-    ensure => $ensure,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+    ensure  => $ensure,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
     content => template("${module_name}/influxdb.conf.erb")
   }
 
