@@ -7,7 +7,9 @@
   "source": "https://github.com/unibet/puppet-influxdb.git",
   "project_page": "https://github.com/unibet/puppet-influxdb",
   "issues_url": "https://github.com/unibet/puppet-influxdb/issues",
-  "dependencies": [],
+  "dependencies": [
+    { "name": "puppetlabs-stdlib", "version_requirement": ">=0.1.6" }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
