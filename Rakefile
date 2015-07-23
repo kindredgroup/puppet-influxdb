@@ -3,6 +3,7 @@ require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
 require 'puppet_blacksmith/rake_tasks'
 require 'puppet-syntax/tasks/puppet-syntax'
+require 'metadata-json-lint/rake_task'
 require 'bundler'
 require 'rake/clean'
 
@@ -30,6 +31,7 @@ end
 task :spec_prep => :librarian_spec_prep
 task :default => [:spec, :lint]
 task :validate => :syntax
+task :test => [:lint, :metadata_lint, :validate, :spec]
 
 desc "Run integration tests"
 task :integration do

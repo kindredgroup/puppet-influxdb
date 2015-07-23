@@ -15,6 +15,7 @@ group :rspec do
   gem 'facter', '>= 1.7.0'
   gem 'rspec-puppet'
   gem 'puppet-syntax'
+  gem 'metadata-json-lint'
 end
 
 group :kitchen do

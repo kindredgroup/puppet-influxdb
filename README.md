@@ -52,7 +52,7 @@ Only tested on EL6
 ### Unit tests
 
 ```
-bundle exec rake spec
+bundle exec rake test
 ```
 
 ### Acceptance tests

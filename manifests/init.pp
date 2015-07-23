@@ -1,39 +1,67 @@
 # == Class: influxdb
 #
-# Full description of class influxdb here.
+# Entry point for installing and configuring influxdb
+# https://influxdb.com
 #
 # === Parameters
 #
 # Document parameters here.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*ensure*]
+#   Ensurable
 #
-# === Variables
+# [*install_from_repository*]
+#   If package should be installed from any configured OS package repository,
+#   false will use the distribution provided by influxdb
+#   Valid values: boolean
 #
-# Here you should define a list of variables that this module would require.
+# [*version*]
+#   Version to install
+#   Valid values: string version
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the function of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*username*]
+#   Name of service user
+#   Valid values: string
 #
+# [*groupname*]
+#   Name of service user group
+#   Valid values: string
+#
+# [*manage_user*]
+#   If user / group resource should be managed by the module
+#   Valid values: boolean
+#
+# [*service_ensure*]
+#   Service ensurable
+#
+# [*service_enable*]
+#   Service enable parameter
+#
+# [*service_refresh*]
+#   If changes in config and package should notify the service
+#   Valid values: boolean
+#
+# [*config_toplevel*]
+#   Configures the top level configuration settings in the influxdb
+#   configuration file. Will not merge with the provided defaults.
+#   Valid values: hash
+#
+# [*config_<rest_of_them>*]
+#   Configures specific section in the influxdb configuration file
+#   Defaults are used from params.pp if not set, the module will
+#   not merge configuration if you set any of the parameters - you
+#   will have to specify any of the defaults explicitly if you intend to
+#   keep certain default behaviors.
+#   Setting any of them to falase
 # === Examples
 #
 #  class { 'influxdb':
 #    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
 #  }
 #
-# === Authors
-#
-# Author Name <author@domain.com>
-#
 # === Copyright
 #
-# Copyright 2015 Your name here, unless otherwise noted.
+# Copyright 2015 North Development AB
 #
 class influxdb (
   $ensure                    = present,

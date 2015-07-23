@@ -4,9 +4,7 @@ env:
   - PUPPET_VERSION=3.7
 
 script:
-  - bundle exec rake lint
-  - bundle exec rake validate
-  - bundle exec rake spec
+  - bundle exec rake test
 
 before_deploy:
   - bundle exec rake clean
