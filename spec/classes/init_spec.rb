@@ -44,4 +44,21 @@ describe 'influxdb' do
     it { should_not contain_file('/etc/opt/influxdb/influxdb.conf').with_content(/\n\[retention\]\n/) }
   end
 
+  context 'with graphite plugin setting templates to an array' do
+    let :params do {
+      :config_graphite => {
+        'enabled'   => true,
+        'protocol'  => 'tcp',
+        'templates' => [
+          '*.app env.service.resource.measurement',
+          'server.*'
+        ]
+      }
+    } end
+
+    it {
+      should contain_file('/etc/opt/influxdb/influxdb.conf').with_content(/\n\[\[graphite\]\]\n  enabled = true\n  protocol = "tcp"\n  templates = \["\*.app env.service.resource.measurement","server.\*"\]\n/)
+    }
+  end
+
 end

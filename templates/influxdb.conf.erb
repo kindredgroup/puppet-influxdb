@@ -18,23 +18,22 @@ items = [
   {'config_hinted_handoff' => '[hinted-handoff]'}
 ]
 
-def quote_if_str(v)
-  # no idea why integer values ends up as strings causing below to fail
-  # return '"' + v + '"' if v.is_a? String
-  # return v
+def value_parser(v)
   if v.is_a? String
     if /^\d+$/.match(v)
       return v
     else
-      return '"' + v + '"'
+      return "\"#{v}\""
     end
+  elsif v.is_a? Array
+    return '[' + v.map { |vv| "\"#{vv}\"" }.join(",") + ']'
   else
     return v
   end
 end
 
 @config_toplevel.keys.sort.each do |key| -%>
-<%= key %> = <%= @config_toplevel[key] %>
+<%= key %> = <%= value_parser(@config_toplevel[key]) %>
 <%- end -%>
 
 <%-
@@ -44,7 +43,7 @@ items.each do |item|
 
 <%= item.values[0] %>
 <%- var.keys.sort.each do |key| -%>
-  <%= key %> = <%= quote_if_str(var[key]) %>
+  <%= key %> = <%= value_parser(var[key]) %>
 <%- end
   end
 end
