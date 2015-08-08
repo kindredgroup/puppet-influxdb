@@ -2,7 +2,7 @@
 
 <%-
 
-items = [
+sections = [
   {'config_meta' => '[meta]'},
   {'config_data' => '[data]'},
   {'config_cluster' => '[cluster]'},
@@ -26,7 +26,7 @@ def value_parser(v)
       return "\"#{v}\""
     end
   elsif v.is_a? Array
-    return '[' + v.map { |vv| "\"#{vv}\"" }.join(",") + ']'
+    return '[' + v.map { |vv| value_parser(vv) }.join(",") + ']'
   else
     return v
   end
@@ -37,11 +37,11 @@ end
 <%- end -%>
 
 <%-
-items.each do |item|
-  var = scope[item.keys[0]]
+sections.each do |section|
+  var = scope[section.keys[0]]
   if var -%>
 
-<%= item.values[0] %>
+<%= section.values[0] %>
 <%- var.keys.sort.each do |key| -%>
   <%= key %> = <%= value_parser(var[key]) %>
 <%- end
