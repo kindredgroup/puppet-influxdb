@@ -52,12 +52,11 @@
 #   not merge configuration if you set any of the parameters - you
 #   will have to specify any of the defaults explicitly if you intend to
 #   keep certain default behaviors.
-#   Setting any of them to falase
+#   Setting any of them to false
+#
 # === Examples
 #
-#  class { 'influxdb':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+# include ::influxdb
 #
 # === Copyright
 #
