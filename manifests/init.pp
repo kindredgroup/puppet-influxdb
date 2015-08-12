@@ -15,6 +15,14 @@
 #   false will use the distribution provided by influxdb
 #   Valid values: boolean
 #
+# [*install_rc*]
+#   If not installing from repository, use latest RC provided by influxdb
+#   Valid values: boolean
+#
+# [*install_nightly*]
+#   If not installing from repository, use nightly build provided by influxdb
+#   Valid values: boolean
+#
 # [*version*]
 #   Version to install
 #   Valid values: string version
@@ -65,6 +73,8 @@
 class influxdb (
   $ensure                    = present,
   $install_from_repository   = false,
+  $install_rc                = false,
+  $install_nightly           = false,
   $version                   = $::influxdb::params::version,
   $username                  = $::influxdb::params::username,
   $groupname                 = $::influxdb::params::groupname,

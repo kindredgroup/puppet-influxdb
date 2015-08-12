@@ -1,6 +1,8 @@
 class influxdb::package (
   $ensure                  = $::influxdb::ensure,
   $install_from_repository = $::influxdb::install_from_repository,
+  $install_rc              = $::influxdb::install_rc,
+  $install_nightly         = $::influxdb::install_nightly,
   $version                 = $::influxdb::version
 ) {
 
@@ -12,17 +14,11 @@ class influxdb::package (
     case $::osfamily {
       'Debian': {
         $package_provider = 'dpkg'
-        $package_source = $::architecture ? {
-          /64/    => "http://s3.amazonaws.com/influxdb/influxdb_${version}_amd64.deb",
-          default => "http://s3.amazonaws.com/influxdb/influxdb_${version}_i386.deb",
-        }
+        $package_source = influxdb_download_url($install_rc, $install_nightly)
       }
       'RedHat', 'Amazon': {
         $package_provider = 'rpm'
-        $package_source = $::architecture ? {
-          /64/    => "http://s3.amazonaws.com/influxdb/influxdb-${version}-1.x86_64.rpm",
-          default => "http://s3.amazonaws.com/influxdb/influxdb-${version}-1.i686.rpm",
-        }
+        $package_source = influxdb_download_url($install_rc, $install_nightly)
       }
       default: {
         fail("Only supports Debian or RedHat ${::osfamily}")

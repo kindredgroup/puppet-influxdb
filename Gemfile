@@ -16,6 +16,7 @@ group :rspec do
   gem 'rspec-puppet'
   gem 'puppet-syntax'
   gem 'metadata-json-lint'
+  gem 'webmock'
 end
 
 group :kitchen do
