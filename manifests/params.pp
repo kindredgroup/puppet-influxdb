@@ -1,6 +1,6 @@
 class influxdb::params {
 
-  $version = '0.9.1'
+  $version = present
   $username = 'influxdb'
   $groupname = 'influxdb'
   $config = '/etc/opt/influxdb/influxdb.conf'
@@ -24,10 +24,12 @@ class influxdb::params {
   }
 
   $config_data = {
-    'dir'                     => '/var/opt/influxdb/data',
-    'MaxWALSize'              => 104857600,
-    'WALFlushInterval'        => '10m',
-    'WALPartitionFlushDelay'  => '2s'
+    'dir'                       => '/var/opt/influxdb/data',
+    'max-wal-size'              => 104857600,
+    'wal-flush-interval'        => '10m',
+    'wal-partition-flush-delay' => '2s',
+    'wal-dir'                   => '/var/opt/influxdb/wal',
+    'wal-enable-logging'        => true
   }
 
   $config_cluster = {

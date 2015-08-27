@@ -75,6 +75,7 @@ class influxdb (
   $install_from_repository   = false,
   $install_rc                = false,
   $install_nightly           = false,
+  $install_source            = undef,
   $version                   = $::influxdb::params::version,
   $username                  = $::influxdb::params::username,
   $groupname                 = $::influxdb::params::groupname,

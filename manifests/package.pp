@@ -3,32 +3,44 @@ class influxdb::package (
   $install_from_repository = $::influxdb::install_from_repository,
   $install_rc              = $::influxdb::install_rc,
   $install_nightly         = $::influxdb::install_nightly,
+  $install_source          = $::influxdb::install_source,
   $version                 = $::influxdb::version
 ) {
 
   package { 'influxdb':
-    ensure => $ensure
   }
 
-  if !$install_from_repository {
+  if $install_from_repository {
+
+    Package['influxdb'] {
+      ensure => $ensure
+    }
+
+  } else {
+
     case $::osfamily {
       'Debian': {
         $package_provider = 'dpkg'
-        $package_source = influxdb_download_url($install_rc, $install_nightly)
       }
       'RedHat', 'Amazon': {
         $package_provider = 'rpm'
-        $package_source = influxdb_download_url($install_rc, $install_nightly)
       }
       default: {
         fail("Only supports Debian or RedHat ${::osfamily}")
       }
     }
 
-    Package['influxdb']{
-      provider => $package_provider,
-      source   => $package_source,
+    $package_source = $install_source ? {
+      undef   => influxdb_download_url($install_rc, $install_nightly, $version),
+      default => $install_source
     }
+
+    Package['influxdb'] {
+      ensure   => $version,
+      provider => $package_provider,
+      source   => $package_source
+    }
+
   }
 
 }
