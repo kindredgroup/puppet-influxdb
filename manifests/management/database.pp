@@ -33,11 +33,13 @@ define influxdb::management::database ( $ensure = 'present' ) {
     }
 
     exec { "manage_influxdb_${db_name}":
-      path    => '/bin:/usr/bin:/opt/influxdb',
-      command => $command,
-      unless  => $unless,
-      onlyif  => $onlyif,
-      require => Class['::influxdb::service']
+      path      => '/bin:/usr/bin:/opt/influxdb',
+      command   => $command,
+      unless    => $unless,
+      onlyif    => $onlyif,
+      tries     => 3,
+      try_sleep => 10,
+      require   => Class['::influxdb::service']
     }
 
 }
