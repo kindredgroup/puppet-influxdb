@@ -22,7 +22,7 @@ end
 group :kitchen do
   gem 'test-kitchen'
   gem 'kitchen-docker'
-  gem 'kitchen-puppet', :git => 'https://github.com/neillturner/kitchen-puppet.git'
+  gem 'kitchen-puppet', '0.0.31'
   gem 'kitchen-vagrant'
   gem 'vagrant-wrapper'
 end

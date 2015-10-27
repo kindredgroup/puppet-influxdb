@@ -4,15 +4,16 @@ driver:
 
 provisioner:
   name: puppet_apply
+  puppet_version: 3.7.2
   modules_path: nevermind
   resolve_with_librarian_puppet: true
   require_chef_for_busser: true
 
 platforms:
-  - name: puppetlabs/centos-6.6-64-puppet
+  - name: puppetlabs/centos-6.6-64-nocm
     driver_plugin: vagrant
     driver_config:
-      box: puppetlabs/centos-6.6-64-puppet
+      box: puppetlabs/centos-6.6-64-nocm
 
 suites:
   - name: default
