@@ -10,6 +10,7 @@ def get_s3_dirlist url
   uri = URI.parse("#{url}?prefix=influxdb")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   request = Net::HTTP::Get.new(uri.request_uri)
   response = http.request(request)
   response.body
